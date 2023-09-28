@@ -1,0 +1,11 @@
+SELECT * FROM (
+    SELECT
+        user_id,
+        COUNT(*) AS post_count,
+        RANK() OVER (ORDER BY COUNT(*) DESC) AS rnk
+    FROM
+        your_post_table
+    GROUP BY
+        user_id
+)
+WHERE rnk <= 10;
