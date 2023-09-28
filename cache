@@ -1,0 +1,29 @@
+from flask import Flask, render_template
+from flask_caching import Cache
+import csv
+
+app = Flask(__name__)
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+
+# Database fetch (replace this with your actual database query)
+def fetch_from_database():
+    return [(1, 'Value1'), (2, 'Value2'), (3, 'Value3')]
+
+# Route for rendering the template
+@app.route('/')
+@cache.cached(timeout=60)  # Cache data for 60 seconds
+def index():
+    # Fetch data from the cache or the database if not in the cache
+    data = cache.get('data')
+    if data is None:
+        data = fetch_from_database()
+        cache.set('data', data)
+
+    # Assign values to separate variables
+    var1, var2, var3 = [item[1] for item in data]
+
+    # Pass variables to the template
+    return render_template('index.html', var1=var1, var2=var2, var3=var3)
+
+if __name__ == '__main__':
+    app.run(debug=True)
