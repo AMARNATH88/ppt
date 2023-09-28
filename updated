@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto Refresh Example</title>
+</head>
+<body>
+    <div id="content">
+        <!-- Content to be refreshed -->
+    </div>
+
+    <script>
+        let value1, value2, value3, value4;
+
+        function refreshContent() {
+            fetch('/get_data')
+                .then(response => response.text())  // Assuming Flask returns plain text
+                .then(data => {
+                    // Split the data into an array based on some delimiter (e.g., comma)
+                    const myArray = data.split(',');
+
+                    // Assign each value to different variables
+                    [value1, value2, value3, value4] = myArray;
+
+                    displayValues();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Handle error, e.g., display an error message
+                });
+        }
+
+        function displayValues() {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = `Values: ${value1}, ${value2}, ${value3}, ${value4}`;
+        }
+
+        // Initiate content refresh when the page loads
+        refreshContent();
+
+        // Optionally, you can set up a periodic refresh using setInterval
+        // setInterval(refreshContent, 30000); // Refresh every 30 seconds
+    </script>
+</body>
+</html>
