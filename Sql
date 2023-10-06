@@ -1,0 +1,8 @@
+SELECT
+    TRIM(REGEXP_SUBSTR(comma_column, '[^,]+', 1, LEVEL)) AS split_value
+FROM
+    your_table
+CONNECT BY
+    PRIOR DBMS_RANDOM.VALUE IS NOT NULL
+    AND PRIOR ROWID = ROWID
+    AND LEVEL <= LENGTH(REGEXP_REPLACE(comma_column, '[^,]+')) + 1;
