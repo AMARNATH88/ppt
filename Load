@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Page</title>
+    <title>Your Webpage</title>
     <style>
-        /* CSS for the loading message */
-        .loading-message {
-            display: none;
+        #loadingMessage {
+            display: block;
             position: fixed;
             top: 0;
             left: 0;
@@ -15,27 +15,34 @@
             height: 100%;
             background-color: rgba(255, 255, 255, 0.8);
             text-align: center;
-            font-size: 24px;
             padding-top: 20%;
+            font-size: 20px;
             z-index: 9999;
         }
     </style>
 </head>
 <body>
-    <!-- Loading Message -->
-    <div class="loading-message" id="loading-message">
-        Loading...
+    <div class="loading-message" id="loadingMessage">
+        Please wait, the webpage is loading...
     </div>
 
     <!-- Your webpage content goes here -->
-    <h1>Welcome to My Website</h1>
-    <p>This is some content.</p>
 
     <script>
-        // JavaScript to display the loading message while the page is loading
-        window.addEventListener('load', function () {
-            document.getElementById('loading-message').style.display = 'none';
+        document.addEventListener("DOMContentLoaded", function () {
+            // Your code to execute after the DOM is loaded
+            hideLoadingMessage();
         });
+
+        window.addEventListener("load", function () {
+            // Your code to execute after everything has loaded
+            hideLoadingMessage();
+        });
+
+        function hideLoadingMessage() {
+            var loadingMessage = document.getElementById("loadingMessage");
+            loadingMessage.style.display = "none";
+        }
     </script>
 </body>
 </html>
