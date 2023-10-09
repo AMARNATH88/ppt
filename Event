@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Flask App</title>
+    <!-- Other head elements -->
+    <style>
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #loading-spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Loading overlay -->
+<div id="overlay">
+    <div id="loading-spinner"></div>
+</div>
+
+<!-- Your HTML content -->
+
+<script>
+    // Function to show the loading overlay
+    function showLoadingOverlay() {
+        document.getElementById("overlay").style.display = "flex";
+    }
+
+    // Function to hide the loading overlay
+    function hideLoadingOverlay() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+    // Simulate an asynchronous operation (replace this with your actual logic)
+    function simulateAsyncOperation() {
+        showLoadingOverlay();
+
+        // Simulate a delay (replace this with your actual asynchronous logic)
+        setTimeout(function() {
+            // Your asynchronous logic goes here
+
+            // Hide the loading overlay when the operation is complete
+            hideLoadingOverlay();
+        }, 2000); // Replace 2000 with the desired delay in milliseconds
+    }
+
+    // Trigger the asynchronous operation on page load (you can replace this with an actual event trigger)
+    document.addEventListener("DOMContentLoaded", function() {
+        simulateAsyncOperation();
+    });
+</script>
+
+</body>
+</html>
