@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Flask App</title>
+    <!-- Other head elements -->
+    <style>
+        /* Style for the overlay and modal */
+        /* ... (as shown in the previous answer) ... */
+    </style>
+</head>
+<body>
+
+<!-- Overlay and modal elements -->
+<div class="overlay" id="overlay"></div>
+<div class="modal" id="modal">
+    <p>Loading...</p>
+</div>
+
+<!-- Display the fetched result -->
+<div id="result"></div>
+
+<!-- Your HTML content -->
+
+<button id="fetchDataButton">Fetch Data</button>
+
+<script>
+    // Function to show the overlay and modal
+    function showLoading() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("modal").style.display = "block";
+    }
+
+    // Function to hide the overlay and modal
+    function hideLoading() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("modal").style.display = "none";
+    }
+
+    // Add a click event listener to the "Fetch Data" button
+    document.getElementById("fetchDataButton").addEventListener("click", function () {
+        showLoading(); // Show loading overlay
+
+        // Make an AJAX request to the Flask route that fetches data
+        fetch("/fetch_data")
+            .then(response => response.text())
+            .then(data => {
+                // Display the fetched result
+                document.getElementById("result").innerHTML = data;
+                hideLoading(); // Hide loading overlay when data is loaded
+            })
+            .catch(error => {
+                console.error(error);
+                hideLoading(); // Hide loading overlay in case of an error
+            });
+    });
+</script>
+
+</body>
+</html>
