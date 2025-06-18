@@ -1,0 +1,19 @@
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    context = browser.new_context()
+
+    page = context.new_page()
+    page.goto("https://your-app-login-url.com")
+
+    print("Please log in and approve MFA manually...")
+
+    # Wait until you're sure the user has logged in successfully
+    page.wait_for_url("**/dashboard", timeout=300000)
+
+    # Save login state to file
+    context.storage_state(path="auth_state.json")
+
+    print("Login state saved.")
+    browser.close()
